@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Belfast Slang Translator</title>
+  <link rel="stylesheet" href="css/translator.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Belfast Slang Translator</h1>
+
+    <!-- Translator Box -->
+    <section class="translator-box">
+      <textarea id="inputText" placeholder="Enter text here..."></textarea>
+      <button id="translateBtn">Translate</button>
+      <textarea id="outputText" placeholder="Translation appears here..." readonly></textarea>
+    </section>
+
+    <!-- Suggestions Section -->
+    <section>
+        <div id="suggestions" class="suggestions"></div>
+      </section>
+
+    <!-- Swap Button -->
+    <button id="swapBtn">Swap Direction</button>
+    <p id="directionText">Current Direction: English → Belfast</p>
+    <hr>
+
+    <!-- Add New Phrase Form -->
+    <section>
+      <h2>Add a New Phrase</h2>
+      <form id="addForm">
+        <label for="englishInput">English phrase:</label>
+        <input type="text" id="englishInput" placeholder="English phrase" required>
+        
+        <label for="belfastInput">Belfast slang:</label>
+        <input type="text" id="belfastInput" placeholder="Belfast slang" required>
+        
+        <button type="submit">Add to Dictionary</button>
+      </form>
+    </section>
+
+  </div>
+
+  <script src="https://unpkg.com/fuse.js@6.4.6/dist/fuse.min.js"></script>
+  <script src="js/translator.js"></script>
+</body>
+</html>
