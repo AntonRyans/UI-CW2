@@ -1,196 +1,236 @@
 /* General Body Styling */
 body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Container Styling */
-  .container {
-    max-width: 700px;
-    margin: 50px auto;
-    text-align: center;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-  }
-  
-  /* Header Styling */
-  h1, h2 {
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 600;
-  }
-  
-  /* Translator Box Flex Layout */
-  .translator-box {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  /* Textarea Styling */
-  textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    font-size: 16px;
-    resize: none;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    transition: border 0.3s ease;
-  }
-  
-  textarea:focus {
-    border-color: #004d99;
-    outline: none;
-  }
-  
-  /* Button Styling */
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #004d99;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  button:hover {
-    background-color: #003366;
-    transform: scale(1.05);
-  }
-  
-  button:active {
-    background-color: #002b66;
-    transform: scale(0.98);
-  }
-  
-  /* Direction Text Styling */
-  #directionText {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #004d99;
-    font-size: 1.1rem;
-  }
-  
-  /* Add Phrase Form Styling */
-  form {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  
-  form input {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    flex: 1 1 200px;
-    max-width: 300px;
-    transition: border 0.3s ease;
-  }
-  
-  form input:focus {
-    border-color: #004d99;
-    outline: none;
-  }
-  
-  /* Common Phrase Section Styling */
-  #commonPhrases {
-    margin: 20px 0;
-  }
-  
-  #commonPhrases h2 {
-    margin-bottom: 10px;
-  }
-  
-  #commonPhrases .phrase-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-    justify-items: center;
-    margin-top: 10px;
-  }
-  
-  /* Common Phrase Button Styling */
-  #commonPhrases button {
-    background-color: #e6f0ff;
-    color: #004d99;
-    border: 1px solid #004d99;
-    font-size: 14px;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: background-color 0.2s ease, transform 0.2s ease;
-  }
-  
-  #commonPhrases button:hover {
-    background-color: #cce0ff;
-    color: #002b66;
-    transform: scale(1.05);
-  }
-  
-  #commonPhrases button:active {
-    background-color: #99c2ff;
-    transform: scale(0.98);
-  }
-  
-  /* Suggestions List Styling */
-  #suggestions {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-  }
-  
-  #suggestions li {
-    padding: 8px 12px;
-    background-color: #f7f7f7;
-    border: 1px solid #ddd;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  #suggestions li:hover {
-    background-color: #f0f0f0;
-  }
-  
-  /* Suggestions Button Group Styling */
-  .suggestions {
-    margin-top: 5px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .suggestions button {
-    padding: 5px 10px;
-    font-size: 0.9rem;
-    background-color: #004d99;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .suggestions button:hover {
-    background-color: #003366;
-  }
-  
-  .suggestions button:active {
-    background-color: #002b66;
-  }
-  
-  /* Styling for Hidden Select Elements */
-  select {
-    display: none;
-  }
-  
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar Styling */
+header {
+  background-color: #004d99;
+  color: rgb(255, 248, 248);
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  padding: 5px 10px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  color: #333131;
+}
+
+.navbar ul li a.active {
+  color: #333131;
+}
+
+/* Container Styling */
+.container {
+  max-width: 700px;
+  margin: 50px auto;
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Header Styling */
+h1, h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Translator Box Flex Layout */
+.translator-box {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Textarea Styling */
+textarea {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border 0.3s ease;
+}
+
+textarea:focus {
+  border-color: #004d99;
+  outline: none;
+}
+
+/* Button Styling */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #004d99;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #003366;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #002b66;
+  transform: scale(0.98);
+}
+
+/* Direction Text Styling */
+#directionText {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #004d99;
+  font-size: 1.1rem;
+}
+
+/* Add Phrase Form Styling */
+form {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+form input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1 1 200px;
+  max-width: 300px;
+  transition: border 0.3s ease;
+}
+
+form input:focus {
+  border-color: #004d99;
+  outline: none;
+}
+
+/* Common Phrase Section Styling */
+#commonPhrases {
+  margin: 20px 0;
+}
+
+#commonPhrases h2 {
+  margin-bottom: 10px;
+}
+
+#commonPhrases .phrase-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  justify-items: center;
+  margin-top: 10px;
+}
+
+/* Common Phrase Button Styling */
+#commonPhrases button {
+  background-color: #e6f0ff;
+  color: #004d99;
+  border: 1px solid #004d99;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#commonPhrases button:hover {
+  background-color: #cce0ff;
+  color: #002b66;
+  transform: scale(1.05);
+}
+
+#commonPhrases button:active {
+  background-color: #99c2ff;
+  transform: scale(0.98);
+}
+
+/* Suggestions List Styling */
+#suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+#suggestions li {
+  padding: 8px 12px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Suggestions Button Group Styling */
+.suggestions {
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.suggestions button {
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  background-color: #004d99;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.suggestions button:hover {
+  background-color: #003366;
+}
+
+.suggestions button:active {
+  background-color: #002b66;
+}
+
+/* Styling for Hidden Select Elements */
+select {
+  display: none;
+}
