@@ -7,6 +7,27 @@
   <link rel="stylesheet" href="css/translator.css">
 </head>
 <body>
+  <!-- Background Images for Light and Dark Mode -->
+  <div class="background-carousel light-images" aria-hidden="true">
+    <img src="pics/belfast 1.jpg" alt="">
+    <img src="pics/belfast 2.jpg" alt="">
+    <img src="pics/belfast 3.jpg" alt="">
+  </div>
+
+  <div class="background-carousel dark-images" aria-hidden="true">
+    <img src="pics/belfast dark 1.jpg" alt="">
+    <img src="pics/belfast dark 2.jpg" alt="">
+    <img src="pics/belfast dark 3.jpg" alt="">
+  </div>
+
+  <!-- Dark Mode Toggle -->
+  <div class="theme-toggle">
+    <label class="switch" for="darkModeToggle">
+      <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode">
+      <span class="slider"></span>
+    </label>
+  </div>
+
   <header>
     <nav class="navbar">
       <ul>
@@ -16,42 +37,47 @@
       </ul>
     </nav>
   </header>
-  <div class="container">
+
+  <main class="container">
     <h1>Belfast Slang Translator</h1>
 
-    <!-- Translator Box -->
+    <!-- Translator Interface -->
     <section class="translator-box">
-      <textarea id="inputText" placeholder="Enter text here..."></textarea>
+      <label for="inputText" class="visually-hidden">Enter text to translate</label>
+      <textarea id="inputText" placeholder="Enter text here..." aria-label="Input text"></textarea>
+
+      <!-- Suggestions Container (Positioned Dynamically) -->
+      <div id="suggestions" class="suggestions" role="listbox" aria-label="Suggestions"></div>
+
       <button id="translateBtn">Translate</button>
-      <textarea id="outputText" placeholder="Translation appears here..." readonly></textarea>
+
+      <label for="outputText" class="visually-hidden">Translation output</label>
+      <textarea id="outputText" placeholder="Translation appears here..." readonly aria-label="Translation output"></textarea>
+
+      <div class="translation-controls">
+        <button id="swapBtn" aria-label="Swap translation direction">Swap Direction</button>
+        <p id="directionText">Current Direction: English → Belfast</p>
+      </div>
     </section>
 
-    <!-- Suggestions Section -->
-    <section>
-        <div id="suggestions" class="suggestions"></div>
-      </section>
-
-    <!-- Swap Button -->
-    <button id="swapBtn">Swap Direction</button>
-    <p id="directionText">Current Direction: English → Belfast</p>
     <hr>
 
-    <!-- Add New Phrase Form -->
+    <!-- Add New Phrase -->
     <section>
       <h2>Add a New Phrase</h2>
       <form id="addForm">
         <label for="englishInput">English phrase:</label>
-        <input type="text" id="englishInput" placeholder="English phrase" required>
-        
+        <input type="text" id="englishInput" placeholder="e.g., I'm hungry" required aria-required="true">
+
         <label for="belfastInput">Belfast slang:</label>
-        <input type="text" id="belfastInput" placeholder="Belfast slang" required>
-        
+        <input type="text" id="belfastInput" placeholder="e.g., I'm clawin' for scran" required aria-required="true">
+
         <button type="submit">Add to Dictionary</button>
       </form>
     </section>
+  </main>
 
-  </div>
-
+  <!-- Libraries -->
   <script src="https://unpkg.com/fuse.js@6.4.6/dist/fuse.min.js"></script>
   <script src="js/translator.js"></script>
 </body>

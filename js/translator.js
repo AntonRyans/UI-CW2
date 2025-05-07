@@ -31,10 +31,11 @@ const defaultDict = {
     "keep going": "keep 'er lit"
 };
 
-// Initialize or load dictionary from localStorage
-if (!localStorage.getItem('belfastDict')) {
-    localStorage.setItem('belfastDict', JSON.stringify(defaultDict));
-}
+// Utilities
+const getStoredDict = () => JSON.parse(localStorage.getItem('belfastDict'));
+const saveDict = (dict) => localStorage.setItem('belfastDict', JSON.stringify(dict));
+
+if (!getStoredDict()) saveDict(defaultDict);
 
 let isEnglishToBelfast = true;
 
@@ -48,99 +49,97 @@ const addForm = document.getElementById('addForm');
 const englishInput = document.getElementById('englishInput');
 const belfastInput = document.getElementById('belfastInput');
 const suggestionsContainer = document.getElementById('suggestions');
+const darkToggle = document.getElementById('darkModeToggle');
+const body = document.body;
 
-// Load dictionary from localStorage
-function loadDict() {
-    return JSON.parse(localStorage.getItem('belfastDict'));
-}
-
-// Update the direction display
-function updateDirectionText() {
+// UI Updates
+const updateDirectionText = () => {
     directionText.textContent = isEnglishToBelfast
         ? "Current Direction: English → Belfast"
         : "Current Direction: Belfast → English";
-}
+};
 
-// Translate text using dictionary
-function translateText(text, dict) {
-    let result = text;
-    const sortedKeys = Object.keys(dict).sort((a, b) => b.length - a.length);
-    for (let key of sortedKeys) {
+// Translation Logic
+const translateText = (text, dict) => {
+    const keys = Object.keys(dict).sort((a, b) => b.length - a.length);
+    return keys.reduce((result, key) => {
         const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const pattern = new RegExp(`\\b${escapedKey}\\b`, 'gi');
-        result = result.replace(pattern, (match) => {
-            const translation = dict[key];
-            return match[0] === match[0].toUpperCase()
-                ? translation.charAt(0).toUpperCase() + translation.slice(1)
-                : translation;
-        });
-    }
-    return result;
-}
+        const regex = new RegExp(`\\b${escapedKey}\\b`, 'gi');
+        return result.replace(regex, (match) =>
+            match[0] === match[0].toUpperCase()
+                ? dict[key].charAt(0).toUpperCase() + dict[key].slice(1)
+                : dict[key]
+        );
+    }, text);
+};
 
-// Translate on button click
+// Events
 translateBtn.addEventListener('click', () => {
-    const dict = loadDict();
+    const dict = getStoredDict();
     const activeDict = isEnglishToBelfast
         ? dict
         : Object.fromEntries(Object.entries(dict).map(([k, v]) => [v, k]));
-    output.value = translateText(input.value.toLowerCase(), activeDict);
+    output.value = translateText(input.value, activeDict);
 });
 
-// Handle swap
 swapBtn.addEventListener('click', () => {
     isEnglishToBelfast = !isEnglishToBelfast;
     updateDirectionText();
     output.value = "";
 });
 
-// Add a new phrase
 addForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const eng = englishInput.value.trim().toLowerCase();
     const slang = belfastInput.value.trim().toLowerCase();
     if (!eng || !slang) return;
 
-    const dict = loadDict();
+    const dict = getStoredDict();
     dict[eng] = slang;
-    localStorage.setItem('belfastDict', JSON.stringify(dict));
+    saveDict(dict);
 
     englishInput.value = "";
     belfastInput.value = "";
     alert(`Added: "${eng}" → "${slang}"`);
+    updateSuggestionsData();
 });
 
-// Fuse.js integration for fuzzy matching with frequency
-const phraseList = Object.entries(loadDict()).map(([phrase, slang]) => ({
-    phrase: phrase,
-    slang: slang,
-    frequency: Math.floor(Math.random() * 10) + 1 // Mock frequency
-}));
+// Fuzzy Suggestions
+let fuse;
+let phraseList = [];
 
-const fuse = new Fuse(phraseList, {
-    keys: ['phrase', 'slang'],
-    includeScore: true,
-    threshold: 0.4, // Adjust sensitivity
-    distance: 100,
-});
+const updateSuggestionsData = () => {
+    const dict = getStoredDict();
+    phraseList = Object.entries(dict).map(([phrase, slang]) => ({
+        phrase, slang,
+        frequency: Math.floor(Math.random() * 10) + 1 // Simulated frequency
+    }));
 
-// Show dynamic suggestions with fuzzy matching and frequency prioritization
+    fuse = new Fuse(phraseList, {
+        keys: ['phrase', 'slang'],
+        includeScore: true,
+        threshold: 0.4,
+        distance: 100,
+    });
+};
+
 input.addEventListener('input', () => {
     const typed = input.value.trim().toLowerCase();
+    if (!typed) {
+        suggestionsContainer.innerHTML = "";
+        return;
+    }
 
-    // Fuzzy search
     const results = fuse.search(typed)
-        .sort((a, b) => b.item.frequency - a.item.frequency) // Prioritize by frequency
-        .slice(0, 5); // Limit suggestions
+        .sort((a, b) => b.item.frequency - a.item.frequency)
+        .slice(0, 5);
 
-    // Clear previous suggestions
     suggestionsContainer.innerHTML = "";
-
-    // Show new suggestions
     results.forEach(({ item }) => {
         const suggestion = isEnglishToBelfast ? item.phrase : item.slang;
         const btn = document.createElement('button');
-        btn.textContent = `${suggestion}`;
+        btn.textContent = suggestion;
+        btn.className = "suggestion-button";
         btn.addEventListener('click', () => {
             input.value = suggestion;
             suggestionsContainer.innerHTML = "";
@@ -149,12 +148,36 @@ input.addEventListener('input', () => {
         suggestionsContainer.appendChild(btn);
     });
 
-    // Position suggestion box under the input
     const rect = input.getBoundingClientRect();
     suggestionsContainer.style.left = `${rect.left + window.scrollX}px`;
     suggestionsContainer.style.top = `${rect.bottom + window.scrollY}px`;
     suggestionsContainer.style.width = `${rect.width}px`;
 });
 
-// Initialize
-updateDirectionText();
+// Dark Mode
+const applyTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const useDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+    body.classList.toggle('dark-mode', useDark);
+    if (darkToggle) darkToggle.checked = useDark;
+};
+
+if (darkToggle) {
+    darkToggle.addEventListener('change', () => {
+        const isDark = darkToggle.checked;
+        body.classList.toggle('dark-mode', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (!localStorage.getItem('theme')) applyTheme();
+});
+
+// Initialize on Load
+document.addEventListener('DOMContentLoaded', () => {
+    applyTheme();
+    updateDirectionText();
+    updateSuggestionsData();
+});
