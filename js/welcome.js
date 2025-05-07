@@ -18,15 +18,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('darkModeToggle');
   const body = document.body;
 
-  // Apply saved theme preference
-  if (localStorage.getItem('theme') === 'dark') {
-    body.classList.add('dark-mode');
-    toggle.checked = true;
-  }
+  // Function to apply the theme based on localStorage or system preference
+  const applyTheme = () => {
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
 
-  // Toggle theme on switch change
+    // Apply theme based on saved preference or system preference
+    if (savedTheme === 'dark' || (savedTheme === null && prefersDarkScheme)) {
+      body.classList.add('dark-mode');
+      toggle.checked = true;
+    } else {
+      body.classList.remove('dark-mode');
+      toggle.checked = false;
+    }
+  };
+
+  // Initial theme application
+  applyTheme();
+
+  // Toggle theme on switch change and save to localStorage
   toggle.addEventListener('change', () => {
-    body.classList.toggle('dark-mode');
-    localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+    const isDark = toggle.checked;
+    body.classList.toggle('dark-mode', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  // Listen for changes in system preference and update if no user preference is saved
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme();
+    }
   });
 });

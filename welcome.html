@@ -8,11 +8,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="background-carousel">
-    <img src="pics/belfast pic 1.jpg" alt="Background 1">
-    <img src="pics/belfast pic 2.jpg" alt="Background 2">
-    <img src="pics/belfast pic 3.jpg" alt="Background 3">
+  <div class="background-carousel light-images">
+    <img src="pics/belfast 1.jpg" alt="Light Background 1">
+    <img src="pics/belfast 2.jpg" alt="Light Background 2">
+    <img src="pics/belfast 3.jpg" alt="Light Background 3">
   </div>
+  
+  <div class="background-carousel dark-images">
+    <img src="pics/belfast_dark1.jpg" alt="Dark Background 1">
+    <img src="pics/belfast_dark2.jpg" alt="Dark Background 2">
+    <img src="pics/belfast_dark3.jpg" alt="Dark Background 3">
+  </div>
+  
+  <div class="theme-toggle">
+    <label class="switch" aria-label="Toggle dark mode">
+      <input type="checkbox" id="darkModeToggle" aria-checked="false">
+      <span class="slider"></span>
+    </label>
+  </div>  
   
   <header>
     <nav class="navbar">
@@ -21,23 +34,30 @@
         <li><a href="translator.html">Slang Translator</a></li>
         <li><a href="logout.html">Log Out</a></li>
       </ul>
-      <div class="theme-toggle">
-        <label class="switch" aria-label="Toggle dark mode">
-          <input type="checkbox" id="darkModeToggle" aria-checked="false">
-          <span class="slider"></span>
-        </label>
-      </div>
-      
     </nav>
   </header>
 
   <main>
     <div class="welcome-container">
       <h1>Welcome to Life In Belfast</h1>
-      <p>Explore local phrases, culture, and tools that help you get around Belfast with ease. Click below to start using the Slang Translator!</p>
+      <p>Explore local phrases, culture, and tools that help you get around Belfast with ease. Our goal is to give you an authentic experience of Belfast's unique vibe and language. Whether you're new to the city or just curious about local expressions, this platform will guide you through all the essentials.</p>
+      
+      <h2>Understanding Belfast's Slang</h2>
+      <p>Belfast has its own distinct way of speaking, influenced by its rich history and diverse culture. From casual greetings to quirky sayings, our Slang Translator will help you understand the words that locals use in everyday life. Some phrases might surprise you, while others will make you feel right at home!</p>
+      
+      <h2>Explore Belfast's Culture</h2>
+      <p>Life in Belfast is more than just words—it's about the people, the traditions, and the celebrations that make this city so special. Whether you're exploring the vibrant art scene, enjoying traditional music in a pub, or attending a local festival, there’s always something to discover here.</p>
+      
+      <h2>Get Around Belfast</h2>
+      <p>Getting around Belfast is a breeze, thanks to its efficient transport system. Whether you're hopping on a bus, cycling through the city, or enjoying a walk along the River Lagan, there are many ways to explore Belfast and experience its beauty up close.</p>
+  
+      <h2>Get Started with the Slang Translator</h2>
+      <p>Ready to dive in? Click the button below to start using the Slang Translator and unlock the true essence of Belfast's language. You’ll be able to understand local expressions, chat with locals like a pro, and immerse yourself in the Belfast way of life.</p>
+  
       <a href="translator.html" class="cta-button">Go to Slang Translator</a>
     </div>
   </main>
+  
 
   <script src="js/welcome.js"></script>
 </body>

@@ -39,30 +39,41 @@ html {
 .background-carousel img:nth-child(3) { animation-delay: 20s; }
 
 @keyframes carouselFade {
-  0%   { opacity: 0; }
-  5%   { opacity: 1; }
-  30%  { opacity: 1; }
-  35%  { opacity: 0; }
-  100% { opacity: 0; }
+  0%, 100% { opacity: 0; }
+  5%, 30% { opacity: 1; }
+  35% { opacity: 0; }
 }
 
-/* Light Overlay */
+/* Theme Switch: Light and Dark Mode Specific Images */
+.dark-images {
+  display: none;
+}
+
+body.dark-mode .light-images {
+  display: none;
+}
+
+body.dark-mode .dark-images {
+  display: block;
+}
+
+/* Overlay */
 body::before {
   content: '';
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.4); /* Default light overlay */
   z-index: -1;
+}
+
+body.dark-mode::before {
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for dark mode */
 }
 
 /* Dark Mode Styles */
 body.dark-mode {
   color: #f0f0f0;
   background-color: #121212;
-}
-
-body.dark-mode::before {
-  background: rgba(0, 0, 0, 0.5);
 }
 
 /* Header / Navbar */
