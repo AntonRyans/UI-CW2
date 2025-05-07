@@ -6,6 +6,16 @@ body {
     padding: 0;
     color: #333;
   }
+  body {
+    background-image: url('../images/downloag.jpg'); /* adjust path if needed */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
   
   /* Container Styling */
   .container {

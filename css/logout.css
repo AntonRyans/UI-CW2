@@ -7,6 +7,15 @@ body {
     margin: 0;
     background-color: #f2f2f2;
   }
+  body {
+    background-image: url('../images/downloag.jpg'); /* adjust path if needed */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
   
   #logoutMessage {
     font-size: 1.5rem;
