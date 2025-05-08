@@ -17,7 +17,8 @@ html {
 /* Background Carousel */
 .background-carousel {
   position: fixed;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -26,7 +27,8 @@ html {
 
 .background-carousel img {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -62,12 +64,12 @@ body::before {
   content: '';
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.4); /* Default light overlay */
+  background: rgba(255, 255, 255, 0.4);
   z-index: -1;
 }
 
 body.dark-mode::before {
-  background: rgba(0, 0, 0, 0.5); /* Dark overlay for dark mode */
+  background: rgba(0, 0, 0, 0.5);
 }
 
 /* Dark Mode Styles */
@@ -78,30 +80,62 @@ body.dark-mode {
 
 /* Header / Navbar */
 header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   background-color: rgba(0, 77, 153, 0.9);
   color: #fff;
-  padding: 10px 0;
+  padding: 10px 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background-color 0.3s ease;
 }
 
 body.dark-mode header {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+/* Navbar */
 .navbar {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
 }
 
-.navbar ul {
-  list-style: none;
+/* Logo */
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  height: 60px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Navbar Links */
+.nav-links {
   display: flex;
   gap: 20px;
   margin: 0;
   padding: 0;
+  flex: 1;
+  justify-content: center;
 }
 
-.navbar ul li a {
+.nav-links li a {
+  position: relative;
   text-decoration: none;
   color: white;
   font-size: 1rem;
@@ -111,21 +145,59 @@ body.dark-mode header {
   transition: all 0.3s ease;
 }
 
-.navbar ul li a:hover,
-.navbar ul li a.active {
-  color: #004d99;
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: 6px;
+  left: 16px;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover::after,
+.nav-links li a.active::after {
+  width: calc(100% - 32px);
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
   background-color: rgba(255, 255, 255, 0.9);
+  color: #004d99;
   transform: scale(1.05);
 }
 
-body.dark-mode .navbar ul li a {
+body.dark-mode .nav-links li a {
   color: #e0e0e0;
 }
 
-body.dark-mode .navbar ul li a:hover,
-body.dark-mode .navbar ul li a.active {
+body.dark-mode .nav-links li a:hover,
+body.dark-mode .nav-links li a.active {
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
+}
+
+/* Auth Links (Sign Up and Log In) */
+.auth-links {
+  display: flex;
+  gap: 15px;
+}
+
+.auth-links a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.auth-links a:hover {
+  color: #004d99;
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.05);
 }
 
 /* Main Content */
@@ -193,14 +265,6 @@ body.dark-mode .welcome-container {
   transform: translateY(-2px) scale(1.03);
 }
 
-body.dark-mode .cta-button {
-  background-color: #2563eb;
-}
-
-body.dark-mode .cta-button:hover {
-  background-color: #1e40af;
-}
-
 /* Theme Toggle */
 .theme-toggle {
   position: fixed;
@@ -254,27 +318,49 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+/* Navbar for Mobile */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.nav-toggle span {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  border-radius: 2px;
+}
+
 /* Responsive Design */
-@media (max-width: 600px) {
-  .welcome-container h1 {
-    font-size: 2rem;
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
 
-  .welcome-container p,
-  .cta-button {
-    font-size: 1em;
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding-left: 0;
+    background-color: rgba(0, 77, 153, 0.95);
+    border-top: 1px solid #fff;
   }
 
-  .navbar ul {
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .auth-links {
     flex-direction: column;
     gap: 10px;
   }
-}
-
-.slider.round {
-  border-radius: 24px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
 }
