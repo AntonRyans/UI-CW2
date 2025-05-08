@@ -118,19 +118,17 @@ function applyTheme(isDark) {
   darkImages?.classList.toggle("visible", isDark);
 }
 
-// CSS Class for 'visible' to make images appear
-// This CSS will handle the fading in/out of images with smooth transitions:
-
-// CSS Example:
-
-/*
-.background-carousel img {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.background-carousel img.visible {
-  opacity: 1;
-}
-*/
+// Wait for the DOM to load before running the script
+  document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('loginForm');
+  
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();  // Prevent the default form submission
+      
+      // TODO: Add any validation/authentication logic here
+      
+      // Redirect to the welcome page on successful login
+      window.location.href = 'welcome.html';
+    });
+  });
 
