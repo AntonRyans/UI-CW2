@@ -22,40 +22,35 @@
 
   <header>
    <nav class="navbar">
- 
-  <a href="welcome.html" class="logo-link">
-    <img src="pics/life in belfast logo.png" alt="Life In Belfast Logo" class="logo">
-  </a>
+    <a href="welcome.html" class="logo-link">
+      <img src="pics/life in belfast logo.png" alt="Life In Belfast Logo" class="logo">
+    </a>
 
-  <ul class="nav-links">
-  <li><a href="welcome.html" class="active">Home</a></li>
-  <li><span class="dot">•</span></li>
-  <li><a href="translator.html">Slang Translator</a></li>
-  <li><span class="dot">•</span></li>
-  <li><a href="logout.html">Log Out</a></li>
-</ul>
+    <ul class="nav-links">
+      <li><a href="welcome.html" class="active">Home</a></li>
+      <li><span class="dot">•</span></li>
+      <li><a href="translator.html">Slang Translator</a></li>
+      <li><span class="dot">•</span></li>
+      <li><a href="logout.html" id="logoutLink" style="display: none;">Log Out</a></li>
+    </ul>
 
-<div class="right-section">
-  <div class="theme-toggle-wrapper">
-    <span class="theme-label">Dark Mode</span>
-    <label class="switch" aria-label="Toggle dark mode">
-      <input type="checkbox" id="darkModeToggle" aria-checked="false">
-      <span class="slider"></span>
-    </label>
-  </div>
-  <span class="dot">•</span>
-  <div class="auth-links">
-    <a href="signup.html">Sign Up</a>
-  </div>
-</div>
+    <div class="right-section">
+      <div class="theme-toggle-wrapper">
+        <span class="theme-label">Dark Mode</span>
+        <label class="switch" aria-label="Toggle dark mode">
+          <input type="checkbox" id="darkModeToggle" aria-checked="false">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
 
-</nav>
-
+  </nav>
   </header>
 
   <main>
     <div class="welcome-container">
-      <h1>Welcome to Life In Belfast</h1>
+      <div id="personalGreeting" class="fade-in greeting-message"></div> 
+      <h1 id="welcomeMessage">Welcome to Life In Belfast</h1>
       <p>Explore local phrases, culture, and tools that help you get around Belfast with ease. Our goal is to give you an authentic experience of Belfast's unique vibe and language. Whether you're new to the city or just curious about local expressions, this platform will guide you through all the essentials.</p>
       
       <h2>Understanding Belfast's Slang</h2>
@@ -73,7 +68,6 @@
       <a href="translator.html" class="cta-button">Go to Slang Translator</a>
     </div>
   </main>
-  
 
   <script src="js/welcome.js"></script>
 </body>

@@ -14,3 +14,11 @@ function logout() {
   // Execute the logout function when the page loads
   window.onload = logout;
   
+  window.addEventListener("DOMContentLoaded", () => {
+  // Clear login data in localStorage
+  localStorage.removeItem('isLoggedIn');
+  localStorage.removeItem('username');
+
+  // Redirect to the home page or login page after logout
+  window.location.href = "welcome.html"; // Or the page you want after logout
+});

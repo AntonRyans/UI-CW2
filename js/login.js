@@ -1,5 +1,5 @@
-// Utility to show a message in the form
-function showMessage(formId, text, color, isSuccess = false) {
+// Utility function to show messages in the form
+const showMessage = (formId, text, color, isSuccess = false) => {
   const form = document.getElementById(formId);
   const message = form?.querySelector(".message");
 
@@ -12,123 +12,119 @@ function showMessage(formId, text, color, isSuccess = false) {
       setTimeout(() => message.classList.remove("success-animation"), 1000);
     }
   }
-}
+};
 
 // Handle login form submission
-function handleLogIn(e) {
+const handleLogin = (e) => {
   e.preventDefault();
 
   const username = document.getElementById("loginUsername")?.value.trim();
   const password = document.getElementById("loginPassword")?.value;
-  const storedPassword = localStorage.getItem(username);
 
   if (!username || !password) {
-    showMessage("loginForm", "❌ All fields are required!", "red");
+    showMessage("loginForm", "❌ Please enter both username and password.", "red");
     return;
   }
 
+  const users = JSON.parse(localStorage.getItem("users")) || {};
+  const storedPassword = users[username];
+
   if (storedPassword === password) {
+    sessionStorage.setItem("isLoggedIn", "true");
+    sessionStorage.setItem("username", username);
+
     showMessage("loginForm", "✅ Login successful! Redirecting...", "green", true);
-    sessionStorage.setItem("user", username);
     setTimeout(() => window.location.href = "welcome.html", 1500);
   } else {
     showMessage("loginForm", "❌ Invalid credentials!", "red");
   }
 
   e.target.reset();
-}
+};
+
+// Attach event listener after DOM loads
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleLogin);
+  }
+});
+
+// Method to redirect to welcome page
+const redirectToWelcomePage = () => {
+  window.location.href = "welcome.html";
+};
 
 // Redirect unauthenticated users on protected pages
-window.onload = function () {
+window.onload = () => {
   const currentPage = window.location.pathname.split("/").pop();
   const user = sessionStorage.getItem("user");
   const protectedPages = ["welcome.html"];
 
+  // Redirect to login page if not authenticated
   if (protectedPages.includes(currentPage) && !user) {
     window.location.href = "login.html";
   }
 
-  // Initialize theme and carousel on page load
+  // Initialize carousel
   handleCarousel();
 };
 
-// Theme toggle logic
+// Handle theme toggle logic
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("darkModeToggle");
   const savedMode = localStorage.getItem("darkMode") === "true";
 
-  // Set the toggle state based on saved theme preference
+  // Set toggle and apply initial theme
   toggle.checked = savedMode;
-
-  // Apply the initial theme based on saved preference
   applyTheme(savedMode);
 
   // Event listener for theme toggle
-  toggle.addEventListener("change", () => {
-    applyTheme(toggle.checked);
-  });
+  toggle.addEventListener("change", () => applyTheme(toggle.checked));
 });
 
 // Handle carousel functionality
-function handleCarousel() {
+const handleCarousel = () => {
   const carousel = document.querySelector(".background-carousel");
   const lightImages = document.querySelector(".light-images");
   const darkImages = document.querySelector(".dark-images");
 
-  // Set initial visibility based on the current theme
   const isDark = document.body.classList.contains("dark-mode");
+
+  // Set initial visibility based on the current theme
   lightImages?.classList.toggle("visible", !isDark);
   darkImages?.classList.toggle("visible", isDark);
 
-  // Start rotating images every 5 seconds with modern methods
+  // Start rotating images
   startImageRotation(isDark ? darkImages : lightImages);
-}
+};
 
-// Start rotating images every 5 seconds using modern JavaScript
-function startImageRotation(carousel) {
+// Start rotating images every 5 seconds
+const startImageRotation = (carousel) => {
   const images = carousel.querySelectorAll("img");
   let currentIndex = 0;
 
-  function rotateImages() {
+  const rotateImages = () => {
     const totalImages = images.length;
 
     images[currentIndex].classList.remove("visible");
     currentIndex = (currentIndex + 1) % totalImages;
     images[currentIndex].classList.add("visible");
 
-    requestAnimationFrame(() => {
-      setTimeout(rotateImages, 5000); // Wait for 5 seconds before rotating again
-    });
-  }
+    setTimeout(rotateImages, 5000); // Wait for 5 seconds before rotating again
+  };
 
   rotateImages(); // Start the rotation
-}
+};
 
 // Apply theme and handle carousel visibility
-function applyTheme(isDark) {
-  const lightImages = document.querySelector(".light-images");
-  const darkImages = document.querySelector(".dark-images");
-
-  // Toggle theme on body
+const applyTheme = (isDark) => {
   document.body.classList.toggle("dark-mode", isDark);
   localStorage.setItem("darkMode", isDark);
 
-  // Toggle carousel image visibility based on theme
+  const lightImages = document.querySelector(".light-images");
+  const darkImages = document.querySelector(".dark-images");
+
   lightImages?.classList.toggle("visible", !isDark);
   darkImages?.classList.toggle("visible", isDark);
-}
-
-// Wait for the DOM to load before running the script
-  document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-  
-    loginForm.addEventListener('submit', function(e) {
-      e.preventDefault();  // Prevent the default form submission
-      
-      // TODO: Add any validation/authentication logic here
-      
-      // Redirect to the welcome page on successful login
-      window.location.href = 'welcome.html';
-    });
-  });
-
+};
