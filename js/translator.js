@@ -154,30 +154,56 @@ input.addEventListener('input', () => {
     suggestionsContainer.style.width = `${rect.width}px`;
 });
 
-// Dark Mode
+// Theme handling functions (light/dark)
 const applyTheme = () => {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const useDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
     body.classList.toggle('dark-mode', useDark);
+    document.querySelector('.dark-images').style.display = useDark ? "block" : "none";
+    document.querySelector('.light-images').style.display = useDark ? "none" : "block";
     if (darkToggle) darkToggle.checked = useDark;
 };
 
-if (darkToggle) {
-    darkToggle.addEventListener('change', () => {
-        const isDark = darkToggle.checked;
-        body.classList.toggle('dark-mode', isDark);
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-}
+darkToggle.addEventListener('change', () => {
+    const isDark = darkToggle.checked;
+    body.classList.toggle('dark-mode', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    applyTheme();
+});
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
     if (!localStorage.getItem('theme')) applyTheme();
 });
 
-// Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
     applyTheme();
     updateDirectionText();
     updateSuggestionsData();
+});
+
+// User session handling (greeting and logout)
+document.addEventListener("DOMContentLoaded", () => {
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
+    const username = sessionStorage.getItem("username");
+
+    const greetingEl = document.getElementById("personalGreeting");
+    const logoutLink = document.getElementById("logoutLink");
+
+    if (!isLoggedIn || !username) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    if (greetingEl) greetingEl.textContent = `👋 Welcome, ${username}!`;
+    if (logoutLink) {
+        logoutLink.style.display = "inline";
+        logoutLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            sessionStorage.setItem("isLoggedIn", "false");
+            sessionStorage.removeItem("username");
+            window.location.href = "login.html";
+        });
+    }
 });
