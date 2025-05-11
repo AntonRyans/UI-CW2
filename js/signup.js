@@ -56,7 +56,7 @@ function handleSignUp(e) {
   showMessage("signupForm", "✅ Sign up successful! Redirecting...", "green", true);
 
   setTimeout(() => {
-    window.location.href = "welcome.html";
+    window.location.href = "index.html";
   }, 1500);
 
   e.target.reset();

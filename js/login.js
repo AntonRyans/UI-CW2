@@ -34,7 +34,7 @@ const handleLogin = (e) => {
     sessionStorage.setItem("username", username);
 
     showMessage("loginForm", "✅ Login successful! Redirecting...", "green", true);
-    setTimeout(() => window.location.href = "welcome.html", 1500);
+    setTimeout(() => window.location.href = "index.html", 1500);
   } else {
     showMessage("loginForm", "❌ Invalid credentials!", "red");
   }
@@ -52,14 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Method to redirect to welcome page
 const redirectToWelcomePage = () => {
-  window.location.href = "welcome.html";
+  window.location.href = "index.html";
 };
 
 // Redirect unauthenticated users on protected pages
 window.onload = () => {
   const currentPage = window.location.pathname.split("/").pop();
   const user = sessionStorage.getItem("user");
-  const protectedPages = ["welcome.html"];
+  const protectedPages = ["index.html"];
 
   // Redirect to login page if not authenticated
   if (protectedPages.includes(currentPage) && !user) {

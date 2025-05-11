@@ -20,5 +20,5 @@ function logout() {
   localStorage.removeItem('username');
 
   // Redirect to the home page or login page after logout
-  window.location.href = "welcome.html"; // Or the page you want after logout
+  window.location.href = "index.html"; // Or the page you want after logout
 });
