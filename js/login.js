@@ -111,10 +111,10 @@ const startImageRotation = (carousel) => {
     currentIndex = (currentIndex + 1) % totalImages;
     images[currentIndex].classList.add("visible");
 
-    setTimeout(rotateImages, 5000); // Wait for 5 seconds before rotating again
+    setTimeout(rotateImages, 5000); 
   };
 
-  rotateImages(); // Start the rotation
+  rotateImages(); 
 };
 
 // Apply theme and handle carousel visibility

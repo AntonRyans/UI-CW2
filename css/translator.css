@@ -321,8 +321,8 @@ body.dark-mode .theme-label {
 /* Center Nav Links */
 .nav-links {
   display: flex;
-  justify-content: center;  /* Center the links horizontally */
-  align-items: center;      /* Align items vertically */
+  justify-content: center;  
+  align-items: center;      
   flex: 2;
   list-style: none;
   padding: 0;

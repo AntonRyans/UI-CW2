@@ -112,7 +112,7 @@ const updateSuggestionsData = () => {
     const dict = getStoredDict();
     phraseList = Object.entries(dict).map(([phrase, slang]) => ({
         phrase, slang,
-        frequency: Math.floor(Math.random() * 10) + 1 // Simulated frequency
+        frequency: Math.floor(Math.random() * 10) + 1 
     }));
 
     fuse = new Fuse(phraseList, {
